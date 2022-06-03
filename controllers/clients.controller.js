@@ -39,7 +39,7 @@ module.exports.userController = {
         name: req.body.name,
         age: req.body.age,
     }, {new: true})
-      .then((datacC) => {
+      .then((data) => {
           res.json(data);
         })
       .catch((err) => {
