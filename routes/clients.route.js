@@ -7,7 +7,7 @@ route.get('/users', userController.gitController)
 
 route.get('/users/:id', userController.getIdControllers)
 
-route.post('/users', userController.postController)
+route.post('/users/add', userController.postController)
 
 route.patch('/users/:id', userController.pathController)
 

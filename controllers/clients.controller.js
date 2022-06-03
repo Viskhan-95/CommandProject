@@ -1,4 +1,5 @@
 const User = require("../models/Client.model");
+const Cart = require("../models/Cart.model");
 
 module.exports.userController = {
   gitController: (req, res) => {
@@ -21,31 +22,33 @@ module.exports.userController = {
       });
   },
 
-  postController: (req, res) => {
-    User.create({
-      name: req.body.name,
-      age: req.body.age,
-    })
-      .then(() => {
-        res.json("Пользователь добавлен");
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  },
-
-  pathController: (req, res) => {
-    User.findByIdAndUpdate(req.params.id, {
+  postController: async (req, res) => {
+    try {
+      const newUser = await User.create({
         name: req.body.name,
         age: req.body.age,
-    }, {new: true})
-      .then((data) => {
-          res.json(data);
-        })
-      .catch((err) => {
-        res.json(err);
+      });     
+      await Cart.create({
+        userId: newUser._id
       });
+      res.json("Пользователь добавлен");
+    } catch(err) {
+        res.json(err);
+      }
   },
+
+pathController: (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    name: req.body.name,
+    age: req.body.age,
+  }, { new: true })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+},
 
   deleteController: (req, res) => {
     User.findByIdAndRemove(req.params.id)

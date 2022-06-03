@@ -19,9 +19,8 @@ getCategoriesId: (req,res)=>{
 postCategories: (req,res)=>{
     Category.create({
         name: req.body.name
-    })
-    .then((data)=>{
-        json(data)
+    }).then((data)=>{
+        res.json(data)
     }).catch(()=>{
         res.json(err)
     })
