@@ -1,5 +1,5 @@
 const { json } = require('body-parser')
-const Category = require('../models/Product.model')
+const Category = require('../models/Category.model')
 module.exports.categoryController = {
 getCategories: (req,res)=>{
     Category.find().then((data)=>{

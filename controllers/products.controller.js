@@ -5,8 +5,24 @@ module.exports.productController = {
             res.json(data)
         })
     },
+    getProductsFromBrand: (req,res)=>{
+Product.find({brandId: req.params.id}).then((data)=>{
+    res.json(data)
+})
+    },
+
+    getProductsFromCateg: (req,res)=>{
+        Product.find({categoryId: req.params.id}).then((data)=>{
+            res.json(data)
+        })
+            },
+            
     patchProdukts: (req,res)=>{
-        Product.findByIdAndUpdate(req.params.id).then((data)=>{
+        Product.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            brandId: req.body.brandId,
+            categoryId: req.body.categoryId
+        }).then((data)=>{
             res.json(data)
         })
     },
@@ -14,7 +30,18 @@ module.exports.productController = {
         Product.findByIdAndRemove(req.params.id).then((data)=>{
             res.json(data)
         })
-    }
+    },
 
+    postProducts: (req,res)=>{
+        Product.create({
+            name: req.body.name,
+            brandId: req.body.brandId,
+            categoryId: req.body.categoryId
 
+        }).then((data)=>{
+            res.json(data)
+        }).catch((err)=>{
+            res.json(err)
+        })
+    },
 }
